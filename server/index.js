@@ -44,7 +44,18 @@ app.put("/users/:id", async (req, res) => {
         console.error(e.message);
     }
 })
+
 //delete
+app.delete("/users/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [id]);
+
+        res.json("User was deleted!");
+    } catch (e) {
+        console.error(e.message);
+    }
+})
 
 app.listen(5000, () => {
     console.log("Server has started on port 5000");
