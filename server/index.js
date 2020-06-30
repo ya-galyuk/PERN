@@ -22,6 +22,15 @@ app.post("/users", async (req, res) => {
     }
 })
 //get all
+app.get("/users", async (req, res) => {
+    try{
+        const allUsers = await pool.query("SELECT * FROM users");
+        res.json(allUsers.rows);
+    }catch (e) {
+        console.error(e.message);
+    }
+
+} )
 
 //update
 
