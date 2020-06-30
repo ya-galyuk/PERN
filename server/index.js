@@ -17,23 +17,33 @@ app.post("/users", async (req, res) => {
         const {name} = req.body;
         const newUser = await pool.query("INSERT INTO users (name) VALUES($1)", [name]);
         res.json(newUser);
-    }catch (e) {
+    } catch (e) {
         console.error(e.message);
     }
 })
+
 //get all
 app.get("/users", async (req, res) => {
-    try{
+    try {
         const allUsers = await pool.query("SELECT * FROM users");
         res.json(allUsers.rows);
-    }catch (e) {
+    } catch (e) {
         console.error(e.message);
     }
-
-} )
+})
 
 //update
+app.put("/users/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const {name} = req.body;
+        const updateUser = await pool.query("UPDATE users SET name = $1 WHERE id = $2", [name, id]);
 
+        res.json("User was updated!");
+    } catch (e) {
+        console.error(e.message);
+    }
+})
 //delete
 
 app.listen(5000, () => {
