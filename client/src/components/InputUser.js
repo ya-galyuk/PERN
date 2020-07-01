@@ -18,7 +18,7 @@ class InputUser extends Component {
         const username = this.state.value;
 
         try {
-            let response = await fetch('http://localhost:5000/users', {
+            const response = await fetch('http://localhost:5000/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
