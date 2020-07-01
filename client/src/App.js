@@ -1,9 +1,12 @@
 import React from 'react';
 import './App.css';
 
+//components
+import InputUser from "./components/InputUser";
+
 function App() {
   return (
-      <div/>
+        <InputUser/>
   );
 }
 
