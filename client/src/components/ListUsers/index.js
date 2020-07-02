@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react";
-import {Space} from 'antd';
+import {Row, Space} from 'antd';
 
 import User from "../User";
 import "./style.css";
@@ -45,15 +45,13 @@ export default class ListUsers extends PureComponent {
 
         return (
             <ul className='usersList__ul'>
-                <Space direction="vertical">
                 {users.map(user =>
-                    <li key={user.id}>
-                        <User user={user}
-                              onBtnDeleteUser={this.deleteUser.bind(this, user.id)}
-                        />
-                    </li>
+                        <li key={user.id} style={{"margin-bottom": "8px"}}>
+                            <User user={user}
+                                  onBtnDeleteUser={this.deleteUser.bind(this, user.id)}
+                            />
+                        </li>
                 )}
-                </Space>
             </ul>
         )
 

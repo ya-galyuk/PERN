@@ -1,5 +1,5 @@
 import React, {Fragment, Component} from "react";
-import {Row, Col, Button, Input} from 'antd';
+import {Row, Col, Button, Input, Modal} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
 
 import "./style.css"
@@ -7,14 +7,21 @@ import "./style.css"
 class InputUser extends Component {
     constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = {
+            value: '',
+            visible: false,
+            newChange: false
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        this.setState({value: event.target.value});
+        this.setState({
+            value: event.target.value,
+            newChange: event.target.value !== '',
+        });
     }
 
     async handleSubmit(event) {
@@ -36,24 +43,46 @@ class InputUser extends Component {
         }
     }
 
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    };
+
+    handleCancel = () => {
+        this.setState({
+            visible: false,
+            value: '',
+        });
+    };
+
     render() {
         return (
             <Fragment>
-                <form onSubmit={this.handleSubmit} style={{"margin-bottom": "8px", "width": "300px"}}>
-                    <Row>
-                        <Col span={10}>
-                            <h1 className="userInsertForm__h1">Name</h1>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={15} offset={6}>
-                            <Input type="text" className="userInsertForm__input" value={this.state.value} onChange={this.handleChange}/>
-                        </Col>
-                        <Col span={3}>
-                            <Button htmlType="submit" icon={<PlusOutlined style={{fontSize: '22px'}}/>} className="userInsertForm__btn"/>
-                        </Col>
-                    </Row>
-                </form>
+                <Row>
+                    <Col span={10}>
+                        <h1 className="userInsertForm__h1">Name</h1>
+                    </Col>
+                    <Col span={6} offset={8}>
+                        <Button htmlType="submit"
+                                icon={<PlusOutlined style={{fontSize: '36px'}}/>}
+                                onClick={this.showModal}
+                                className="userInsertForm__btn"
+                        />
+                    </Col>
+                </Row>
+
+
+
+                <Modal
+                    title="Add new username !"
+                    visible={this.state.visible}
+                    onOk={this.handleSubmit}
+                    onCancel={this.handleCancel}
+                    okButtonProps={{ disabled: !this.state.newChange }}
+                >
+                    <Input type="text" className="userInsertForm__input" value={this.state.value} onChange={this.handleChange}/>
+                </Modal>
             </Fragment>
         );
     }

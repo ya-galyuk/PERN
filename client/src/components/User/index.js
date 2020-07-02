@@ -1,5 +1,5 @@
 import React, {PureComponent, Fragment} from "react";
-import {Button, Space} from 'antd';
+import {Button, Space, Row, Col} from 'antd';
 import Icon from '@ant-design/icons';
 
 import EditUser from "../EditUser";
@@ -28,11 +28,17 @@ class User extends PureComponent {
 
         return (
             <Fragment>
-                <Space align="center">
-                    {body}
-                    <EditUser user={user}/>
-                    <Button className="usersItem__btn-delete" onClick={onBtnDeleteUser} icon={<DeleteIcon/>} style={{padding: "0"}}/>
-                </Space>
+                <Row gutter={16} align="center">
+                    <Col className="gutter-row" span={10}>
+                        {body}
+                    </Col>
+                    <Col className="gutter-row" span={8}>
+                        <EditUser user={user}/>
+                    </Col>
+                    <Col className="gutter-row" span={6} style={{display:"flex", "align-items":"center"}}>
+                        <Button className="usersItem__btn-delete" onClick={onBtnDeleteUser} icon={<DeleteIcon/>} style={{padding: "0"}}/>
+                    </Col>
+                </Row>
             </Fragment>
         )
     }
