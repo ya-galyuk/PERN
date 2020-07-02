@@ -26,7 +26,7 @@ class InputUser extends Component {
                 body: JSON.stringify({username})
             });
 
-            window.location ="/"
+            window.location ="/";
         } catch (e) {
             console.error(e.message);
         }

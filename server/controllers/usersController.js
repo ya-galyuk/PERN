@@ -37,8 +37,8 @@ async function showUsers(req, res) {
  */
 async function updateUser(req, res) {
     try {
-        const {id} = req.params;
-        const {name} = req.body;
+        const id = req.params.id;
+        const name = req.body.username;
         const updateUser = await pool.query("UPDATE users SET name = $1 WHERE id = $2", [name, id]);
 
         res.json("User was updated!");
