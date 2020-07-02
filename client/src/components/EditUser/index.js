@@ -24,7 +24,7 @@ class Index extends Component {
             e.preventDefault();
             try {
                 const username = this.state.username;
-                const response = await fetch(`http://localhost:5000/users/${this.props.user.id}`, {
+                await fetch(`http://localhost:5000/users/${this.props.user.id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'

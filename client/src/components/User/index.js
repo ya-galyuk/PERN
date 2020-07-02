@@ -1,14 +1,11 @@
 import React, {PureComponent, Fragment} from "react";
-import {Button, Space, Row, Col} from 'antd';
+import {Button, Row, Col} from 'antd';
 import Icon from '@ant-design/icons';
 
 import EditUser from "../EditUser";
 import "./style.css"
 
 class User extends PureComponent {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         const {user, onBtnDeleteUser} = this.props;
@@ -29,13 +26,13 @@ class User extends PureComponent {
         return (
             <Fragment>
                 <Row gutter={16} align="center">
-                    <Col className="gutter-row" span={10}>
+                    <Col className="gutter-row" md={10}>
                         {body}
                     </Col>
-                    <Col className="gutter-row" span={8}>
+                    <Col className="gutter-row" md={5}>
                         <EditUser user={user}/>
                     </Col>
-                    <Col className="gutter-row" span={6} style={{display:"flex", "align-items":"center"}}>
+                    <Col className="gutter-row" md={9} style={{display:"flex", "alignItems":"center"}}>
                         <Button className="usersItem__btn-delete" onClick={onBtnDeleteUser} icon={<DeleteIcon/>} style={{padding: "0"}}/>
                     </Col>
                 </Row>

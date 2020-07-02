@@ -29,7 +29,7 @@ class InputUser extends Component {
         const username = this.state.value;
 
         try {
-            const response = await fetch('http://localhost:5000/users', {
+            await fetch('http://localhost:5000/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
@@ -63,25 +63,24 @@ class InputUser extends Component {
                     <Col span={10}>
                         <h1 className="userInsertForm__h1">Name</h1>
                     </Col>
-                    <Col span={6} offset={8}>
+                    <Col span={9} offset={5}>
                         <Button htmlType="submit"
-                                icon={<PlusOutlined style={{fontSize: '36px'}}/>}
+                                icon={<PlusOutlined style={{fontSize: '32px'}}/>}
                                 onClick={this.showModal}
                                 className="userInsertForm__btn"
                         />
                     </Col>
                 </Row>
 
-
-
                 <Modal
                     title="Add new username !"
                     visible={this.state.visible}
                     onOk={this.handleSubmit}
                     onCancel={this.handleCancel}
-                    okButtonProps={{ disabled: !this.state.newChange }}
+                    okButtonProps={{disabled: !this.state.newChange}}
                 >
-                    <Input type="text" className="userInsertForm__input" value={this.state.value} onChange={this.handleChange}/>
+                    <Input type="text" className="userInsertForm__input" value={this.state.value}
+                           onChange={this.handleChange}/>
                 </Modal>
             </Fragment>
         );

@@ -1,5 +1,4 @@
 import React, {PureComponent} from "react";
-import {Row, Space} from 'antd';
 
 import User from "../User";
 import "./style.css";
@@ -17,7 +16,7 @@ export default class ListUsers extends PureComponent {
     //function for delete user
     deleteUser = async (id) => {
         try {
-            const deleteUser = await fetch(`http://localhost:5000/users/${id}`, {
+            await fetch(`http://localhost:5000/users/${id}`, {
                 method: 'DELETE'
             });
 
@@ -46,7 +45,7 @@ export default class ListUsers extends PureComponent {
         return (
             <ul className='usersList__ul'>
                 {users.map(user =>
-                        <li key={user.id} style={{"margin-bottom": "8px"}}>
+                        <li key={user.id} style={{"marginBottom": "8px"}}>
                             <User user={user}
                                   onBtnDeleteUser={this.deleteUser.bind(this, user.id)}
                             />
