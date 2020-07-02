@@ -1,7 +1,8 @@
 import React, {Component, Fragment} from "react";
 import {Button, Input, Modal} from "antd";
+import "./style.css";
 
-class EditUser extends Component {
+class Index extends Component {
     constructor(props) {
         super(props);
 
@@ -62,7 +63,7 @@ class EditUser extends Component {
 
         return (
             <Fragment>
-                <Button type="primary" onClick={this.showModal}>Edit</Button>
+                <Button type="primary" className="usersItem__btn-change" onClick={this.showModal}>Change</Button>
                 <Modal
                     title="Set new username !"
                     visible={this.state.visible}
@@ -77,4 +78,4 @@ class EditUser extends Component {
     }
 }
 
-export default EditUser;
+export default Index;

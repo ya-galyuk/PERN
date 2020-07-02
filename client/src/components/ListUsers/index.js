@@ -1,5 +1,8 @@
 import React, {PureComponent} from "react";
-import User from "./User";
+import {Space} from 'antd';
+
+import User from "../User";
+import "./style.css";
 
 export default class ListUsers extends PureComponent {
 
@@ -39,22 +42,20 @@ export default class ListUsers extends PureComponent {
 
     render() {
         const {users} = this.state;
+
         return (
-            <ul>
+            <ul className='usersList__ul'>
+                <Space direction="vertical">
                 {users.map(user =>
                     <li key={user.id}>
                         <User user={user}
-                              onBtnUpdateUser={this.updateUser.bind(this, user.id)}
                               onBtnDeleteUser={this.deleteUser.bind(this, user.id)}
                         />
                     </li>
                 )}
+                </Space>
             </ul>
         )
-    }
-
-    //function for update user
-    updateUser = async (id) => {
 
     }
 }

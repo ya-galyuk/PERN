@@ -1,0 +1,15 @@
+.usersItem__content-block{
+    display: inline-block;
+    width: 125px;
+}
+.usersItem__p{
+    font-size: 22px;
+    font-weight: 300;
+    text-align: right;
+    color: #000;
+    margin: 0;
+}
+.usersItem__btn-delete{
+    border: 0;
+    box-shadow: none;
+}

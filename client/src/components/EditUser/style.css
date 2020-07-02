@@ -1,0 +1,19 @@
+.usersItem__btn-change{
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 700;
+    color: #fff;
+    background-color: rgb(0, 210, 239);
+    border: 0;
+    border-radius: 6px;
+    height: 40px;
+    width: 97px;
+}
+
+.usersItem__btn-change:hover,
+.usersItem__btn-change:active,
+.usersItem__btn-change:focus{
+    outline: none;
+    background-color: rgb(0, 210, 239);
+    box-shadow: none;
+}

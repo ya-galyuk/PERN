@@ -1,0 +1,13 @@
+.userInsertForm__h1{
+    font-size: 30px;
+    font-weight: 300;
+    text-align: right;
+}
+.userInsertForm__input{
+    width: 100%;
+}
+.userInsertForm__btn{
+    margin-left: 10px;
+    border: 0;
+    box-shadow: none;
+}
