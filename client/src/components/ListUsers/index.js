@@ -28,11 +28,10 @@ export default class ListUsers extends PureComponent {
         }
     }
 
-    async componentDidMount() {
+     async componentDidMount() {
         try {
             const result = await fetch('http://localhost:5000/users');
             const jsonData = await result.json();
-
             this.setState({users: jsonData});
         } catch (e) {
             console.error(e.message);

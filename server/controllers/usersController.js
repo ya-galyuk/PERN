@@ -1,4 +1,5 @@
-const pool = require("../db");
+const db = require('../database/models/index');
+const User = db['User'];
 
 module.exports = {
     showUsers: showUsers,
@@ -12,8 +13,10 @@ module.exports = {
  */
 async function createUser(req, res) {
     try {
-        const data = req.body.username;
-        const newUser = await pool.query("INSERT INTO users(name) VALUES($1)", [data]);
+        const data = req.body;
+        const newUser = await User.create({
+            userName: data.username,
+        });
         res.json(newUser);
     } catch (e) {
         console.error(e.message);
@@ -24,9 +27,10 @@ async function createUser(req, res) {
  * get all users
  */
 async function showUsers(req, res) {
+
     try {
-        const allUsers = await pool.query("SELECT * FROM users");
-        res.json(allUsers.rows);
+        const allUsers = await User.findAll();
+        res.send(JSON.stringify(allUsers, null, 2));
     } catch (e) {
         console.error(e.message);
     }
@@ -38,9 +42,12 @@ async function showUsers(req, res) {
 async function updateUser(req, res) {
     try {
         const id = req.params.id;
-        const name = req.body.username;
-        const updateUser = await pool.query("UPDATE users SET name = $1 WHERE id = $2", [name, id]);
-
+        const username = req.body.username;
+        await User.update({ userName: username }, {
+            where: {
+                id: id
+            }
+        });
         res.json("User was updated!");
     } catch (e) {
         console.error(e.message);
@@ -54,8 +61,11 @@ async function deleteUser(req, res) {
 
     try {
         const {id} = req.params;
-        const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [id]);
-
+        await User.destroy({
+            where: {
+                id: id
+            }
+        });
         res.json("User was deleted!");
     } catch (e) {
         console.error(e.message);

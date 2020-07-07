@@ -10,7 +10,7 @@ class User extends PureComponent {
     render() {
         const {user, onBtnDeleteUser} = this.props;
         const body = <div className="usersItem__content-block">
-            <p className="usersItem__p">{user.name}</p>
+            <p className="usersItem__p">{user.userName}</p>
         </div>
 
         const DeleteSvg = () => (
