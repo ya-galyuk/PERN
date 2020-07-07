@@ -1,3 +1,5 @@
+server/database/
+
 ## Running Migrations
 ### `npx sequelize-cli db:migrate`
 
