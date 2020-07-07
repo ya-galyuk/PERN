@@ -71,7 +71,7 @@ class Index extends Component {
                     onCancel={this.handleCancel}
                     okButtonProps={{ disabled: !this.state.newChange }}
                 >
-                    <Input name="username" value={this.state.username} placeholder={user.name} onChange={this.handleChange}/>
+                    <Input name="username" value={this.state.username} placeholder={user.userName} onChange={this.handleChange}/>
                 </Modal>
             </Fragment>
         );
