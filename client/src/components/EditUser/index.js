@@ -1,81 +1,64 @@
-import React, {Component, Fragment} from "react";
+import React, {Fragment, useState} from "react";
 import {Button, Input, Modal} from "antd";
 import "./style.css";
 
-class Index extends Component {
-    constructor(props) {
-        super(props);
+const EditUser = ({user}) => {
 
-        this.state = {
-            visible: false,
-            username: '',
-            newChange: false
-        }
-    }
+    const [visible, setVisible] = useState(false);
+    const [username, setUsername] = useState('');
+    const [newChange, setNewChange] = useState(false);
 
-    showModal = () => {
-        this.setState({
-            visible: true,
-        });
+    const showModal = () => {
+        setVisible(true);
     };
 
-    handleEdit = async e => {
-        if (this.state.username !== '') {
-            e.preventDefault();
-            try {
-                const username = this.state.username;
-                await fetch(`http://localhost:5000/users/${this.props.user.id}`, {
+    const handleEdit = async (event) => {
+        event.preventDefault();
+        try {
+            if (username !== '') {
+                await fetch(`http://localhost:5000/users/${user.id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'
                     },
                     body: JSON.stringify({username})
                 });
-
-                window.location ="/";
-            } catch (e) {
-                console.error(e.message);
             }
+        } catch (e) {
+            console.error(e.message);
         }
 
-        this.setState({
-            visible: false,
-        });
+        setVisible(false);
+        // window.location ="/"
+
     };
 
-    handleCancel = e => {
-        this.setState({
-            visible: false,
-            username: '',
-        });
+    const handleCancel = () => {
+        setVisible(false);
+        setUsername('');
     };
 
-    handleChange = e => {
-        this.setState({
-            username: e.target.value,
-            newChange: e.target.value !== '',
-        });
+    const handleChange = (e) => {
+        setUsername(e.target.value);
+        setNewChange(e.target.value !== '');
     }
 
-    render() {
+    return (
+        <Fragment>
+            <Button type="primary" className="usersItem__btn-change" onClick={showModal}>Change</Button>
+            <Modal
+                title="Set new username !"
+                visible={visible}
+                onOk={handleEdit}
+                onCancel={handleCancel}
+                okButtonProps={{disabled: !newChange}}
+            >
+                <Input name="username" value={username} placeholder={user.userName}
+                       onChange={handleChange}/>
+            </Modal>
+        </Fragment>
+    );
 
-        const {user} = this.props;
-
-        return (
-            <Fragment>
-                <Button type="primary" className="usersItem__btn-change" onClick={this.showModal}>Change</Button>
-                <Modal
-                    title="Set new username !"
-                    visible={this.state.visible}
-                    onOk={this.handleEdit}
-                    onCancel={this.handleCancel}
-                    okButtonProps={{ disabled: !this.state.newChange }}
-                >
-                    <Input name="username" value={this.state.username} placeholder={user.userName} onChange={this.handleChange}/>
-                </Modal>
-            </Fragment>
-        );
-    }
 }
 
-export default Index;
+export default EditUser;

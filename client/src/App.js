@@ -4,7 +4,7 @@ import "./App.css"
 import InputUser from "./components/InputUser";
 import ListUsers from "./components/ListUsers";
 
-function App() {
+const App = () => {
     return (
         <Fragment>
             <div className="container">
