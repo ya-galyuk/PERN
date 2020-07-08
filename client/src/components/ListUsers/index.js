@@ -1,57 +1,53 @@
-import React, {PureComponent} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 
 import User from "../User";
 import "./style.css";
 
-export default class ListUsers extends PureComponent {
+const ListUsers = (props) => {
+    const [users, setUsers] = useState([]);
 
-    constructor(props) {
-        super(props);
+    const getUsers = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/users');
+            const jsonData = await response.json();
+            setUsers(jsonData);
 
-        this.state = {
-            users: [],
+            console.log(jsonData);
+        } catch (e) {
+            console.error(e.message)
         }
     }
 
-    //function for delete user
-    deleteUser = async (id) => {
+    const deleteUser = async (id) => {
         try {
             await fetch(`http://localhost:5000/users/${id}`, {
                 method: 'DELETE'
             });
-
-            this.setState({
-                users: this.state.users.filter(user => user.id !== id)
-            });
+            setUsers(users.filter(user => user.id !== id));
         } catch (e) {
             console.error(e.message);
         }
     }
 
-     async componentDidMount() {
-        try {
-            const result = await fetch('http://localhost:5000/users');
-            const jsonData = await result.json();
-            this.setState({users: jsonData});
-        } catch (e) {
-            console.error(e.message);
-        }
-    }
+    useEffect(() => {
+        const time = setTimeout(() => {
+            getUsers();
+        }, 1000);
+        return () => clearTimeout(time);
+    });
 
-    render() {
-        const {users} = this.state;
-
-        return (
+    return (
+        <Fragment>
             <ul className='usersList__ul'>
-                {users.map(user =>
+                {
+                    users.map(user => (
                         <li key={user.id} style={{"marginBottom": "8px"}}>
-                            <User user={user}
-                                  onBtnDeleteUser={this.deleteUser.bind(this, user.id)}
-                            />
+                            <User user={user} onButtonClick={() => deleteUser(user.id)}/>
                         </li>
-                )}
+                    ))
+                }
             </ul>
-        )
-
-    }
+        </Fragment>
+    )
 }
+export default ListUsers;
