@@ -2,7 +2,7 @@ import React, {Fragment, useState} from "react";
 import {Button, Input, Modal} from "antd";
 import "./style.css";
 
-const EditUser = ({user}) => {
+const EditUser = (props) => {
 
     const [visible, setVisible] = useState(false);
     const [username, setUsername] = useState('');
@@ -12,25 +12,10 @@ const EditUser = ({user}) => {
         setVisible(true);
     };
 
-    const handleEdit = async (event) => {
-        event.preventDefault();
-        try {
-            if (username !== '') {
-                await fetch(`http://localhost:5000/users/${user.id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8'
-                    },
-                    body: JSON.stringify({username})
-                });
-            }
-        } catch (e) {
-            console.error(e.message);
-        }
-
+    const handleOk = () => {
+        props.editUser(username, props.user.id);
         setVisible(false);
-        // window.location ="/"
-
+        setUsername('');
     };
 
     const handleCancel = () => {
@@ -49,11 +34,11 @@ const EditUser = ({user}) => {
             <Modal
                 title="Set new username !"
                 visible={visible}
-                onOk={handleEdit}
+                onOk={handleOk}
                 onCancel={handleCancel}
                 okButtonProps={{disabled: !newChange}}
             >
-                <Input name="username" value={username} placeholder={user.userName}
+                <Input name="username" value={username} placeholder={props.user.userName}
                        onChange={handleChange}/>
             </Modal>
         </Fragment>

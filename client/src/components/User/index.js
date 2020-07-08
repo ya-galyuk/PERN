@@ -5,7 +5,7 @@ import Icon from '@ant-design/icons';
 import EditUser from "../EditUser";
 import "./style.css"
 
-const User = ({user, onButtonClick}) => {
+const User = (props) => {
 
     const DeleteSvg = () => (
         <svg className="icon" height="24" width="24" x="0px" y="0px" viewBox="0 0 1024 1024"
@@ -19,19 +19,25 @@ const User = ({user, onButtonClick}) => {
 
     return (
         <Fragment>
-            <Row gutter={16} align="center">
-                <Col className="gutter-row" md={10}>
-                    <p className="usersItem__p">{user.userName}</p>
-                </Col>
-                <Col className="gutter-row" md={5}>
-                    <EditUser user={user}/>
-                </Col>
-                <Col className="gutter-row" md={9} style={{display: "flex", "alignItems": "center"}}>
-                    <Button className="usersItem__btn-delete"
-                            onClick={onButtonClick}
-                            icon={<DeleteIcon/>} style={{padding: "0"}}/>
-                </Col>
-            </Row>
+            {
+                props.users.map(user => (
+                    <li key={user.id} style={{"marginBottom": "8px"}}>
+                        <Row gutter={16} align="center">
+                            <Col className="gutter-row" md={10}>
+                                <p className="usersItem__p">{user.userName}</p>
+                            </Col>
+                            <Col className="gutter-row" md={5}>
+                                <EditUser user={user} editUser={props.editUser}/>
+                            </Col>
+                            <Col className="gutter-row" md={9} style={{display: "flex", "alignItems": "center"}}>
+                                <Button className="usersItem__btn-delete"
+                                        onClick={() => props.deleteUser(user.id)}
+                                        icon={<DeleteIcon/>} style={{padding: "0"}}/>
+                            </Col>
+                        </Row>
+                    </li>
+                ))
+            }
         </Fragment>
     )
 }

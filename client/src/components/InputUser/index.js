@@ -14,29 +14,14 @@ const InputUser = (props) => {
         setNewChange(event.target.value !== '');
     }
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const username = value;
-        try {
-            await fetch('http://localhost:5000/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify({username})
-            });
-        } catch (e) {
-            console.error(e.message);
-        }
-
+    const handleOk = () => {
+        props.addUser(value);
         setVisible(false);
         setValue('');
-        // window.location ="/"
     }
 
     const showModal = () => {
         setVisible(true);
-
     };
 
     const handleCancel = () => {
@@ -62,7 +47,7 @@ const InputUser = (props) => {
             <Modal
                 title="Add new username !"
                 visible={visible}
-                onOk={handleSubmit}
+                onOk={handleOk}
                 onCancel={handleCancel}
                 okButtonProps={{disabled: !newChange}}
             >
